@@ -142,8 +142,35 @@ app.get('/api/test-connection', (req, res) => {
   });
 });
 
+app.post('/api/check-content', (req, res) => {
+  const { url } = req.body;
+  const query = "SELECT * FROM tasks WHERE url = ?";
+  db.query(query, [url], (err, results) => {
+      if (err) return res.status(500).send({ error: err });
+      if (results.length > 0) {
+          res.send({ exists: true, task: results[0] });
+      } else {
+          res.send({ exists: false });
+      }
+  });
+});
 
+app.post('/api/scrape', (req, res) => {
+  const { task_name, media_source, url, topic, subtopic, thumbnail } = req.body;
+  const assigned = 'unassigned';
+  const progress = 'Assigned';
+  const users = '[]';
+  const details = '';
 
+  const query = `
+      INSERT INTO tasks (task_name, media_source, url, assigned, progress, users, details, topic, subtopic, thumbnail)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `;
+  db.query(query, [task_name, media_source, url, assigned, progress, users, details, topic, subtopic, thumbnail], (err, result) => {
+      if (err) return res.status(500).send(err);
+      res.status(200).send({ success: true, task_id: result.insertId });
+  });
+});
 // Start the server
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {

@@ -62,7 +62,7 @@ const TopicList: React.FC<TopicListProps> = ({
           <ListItem key={index} paddingY="5px">
             <HStack>
               <Image
-                src={`../assets/topics/${topic}.png`} // Assuming thumbnail images are named as topic.webp
+                src={`../assets/images/topics/${topic}.png`} // Assuming thumbnail images are named as topic.webp
                 alt="Thumbnail"
                 borderRadius="md"
                 boxSize="50px"

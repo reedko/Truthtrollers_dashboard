@@ -59,7 +59,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onSelect, isSelected }) => {
         cursor="pointer" // Change cursor to pointer
       >
         <Image
-          src={`../assets/task_id_${task.task_id}.png`} // Assuming thumbnail images are named as task_id_x.png
+          src={`../assets/images/tasks/task_id_${task.task_id}.png`} // Assuming thumbnail images are named as task_id_x.png
           alt="Thumbnail"
           borderRadius="md"
           boxSize="200px"
@@ -93,9 +93,13 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onSelect, isSelected }) => {
                 Users
               </MenuButton>
               <MenuList>
-                {task.users.split(",").map((user, index) => (
-                  <MenuItem key={index}>{user.trim()}</MenuItem>
-                ))}
+                {task.users
+                  ? task.users
+                      .split(",")
+                      .map((user, index) => (
+                        <MenuItem key={index}>{user.trim()}</MenuItem>
+                      ))
+                  : ""}
               </MenuList>
             </Menu>
           </GridItem>
