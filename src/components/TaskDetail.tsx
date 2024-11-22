@@ -22,7 +22,9 @@ const TaskDetail = () => {
       setLoadingContent(true); // Set loading state
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/scrape?url=${encodeURIComponent(task.url)}`
+          `http://localhost:5001/api/scrapecontent?url=${encodeURIComponent(
+            task.url
+          )}`
         );
         setArticleContent(response.data); // Set the scraped content
       } catch (err) {
